@@ -1,0 +1,15 @@
+﻿<Window x:Class="PostOfficeSavingsSuite.CreateFormWindow" Name="CreateForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create Form - PostOffice Savings Suite" Height="768" Width="1024" MinHeight="768" MinWidth="1024"
+        Closing="CreateForm_Closing">
+    <Grid Name="CreateFormGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1024" Height="768">
+        <Grid Name="FormDetailsGrid" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Height="300" Background="#66FFFFFF">
+            
+        </Grid>
+        <Grid Name="FormContentGrid" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Height="Auto"></Grid>
+    </Grid>
+    <Window.Background>
+        <ImageBrush ImageSource="Images/background.png" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"></ImageBrush>
+    </Window.Background>
+</Window>
