@@ -1,8 +1,17 @@
 ﻿<Window x:Class="PostOfficeSavingsSuite.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="PostOffice Savings Suite" Height="250" Width="500">
+    <Grid HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="500">
+        <Grid Height="50" VerticalAlignment="Top" OpacityMask="Black">
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25" Height="40" Margin="0,0" Text="What do you want to do today ?" />
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="150" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="250">
+            <Button Content="Add Customer" Width="150" Height="80" FontSize="20" />
+        </Grid>
+        <Grid HorizontalAlignment="Right" Height="150" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="250">
+            <Button Content="Create Form" Width="150" Height="80" FontSize="20" />
+        </Grid>
     </Grid>
+
 </Window>
