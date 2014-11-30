@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PostOfficeSavingsSuite.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -21,23 +22,19 @@ namespace PostOfficeSavingsSuite
     /// </summary>
     public partial class CreateFormWindow : Window
     {
-        OleDbConnection con = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Sai\Data\SaiP.mdb;Jet OLEDB:Database Password=ijar;");
+        public List<Customer> Customers = DbWorker.GetCustomers("");
+        public Customer SelectedCustomer { get; set; }
         public CreateFormWindow()
         {
             InitializeComponent();
-            OpenDbConnection();
+            AccountNumberBox.ItemsSource = Customers;
         }
 
-        private void OpenDbConnection() 
+        private List<string> GetAccountNumbers()
         {
-            con.Open();
-
-            OleDbDataAdapter da = new OleDbDataAdapter("Select * from Emp", con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            return new List<string> { "12345", "23456" };
         }
-
+        
         private void CreateForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to exit ?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -45,6 +42,27 @@ namespace PostOfficeSavingsSuite
             {
                 e.Cancel = true;
             }
+        }
+
+        private void AccountNumberBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            var textBox = sender as AutoCompleteBox;
+            if(string.IsNullOrEmpty(textBox.Text)) return;
+            if (!CheckIfAccountNumberExists(textBox.Text)) 
+            {
+                Customers = DbWorker.GetCustomers(textBox.Text);
+            }
+            textBox.ItemsSource = Customers;
+        }
+
+        private bool CheckIfAccountNumberExists(string accountNumber) 
+        {
+            foreach (var customer in Customers) 
+            {
+                if (customer.AccountNumber.ToString().StartsWith(accountNumber))
+                    return true;
+            }
+            return false;
         }
     }
 }

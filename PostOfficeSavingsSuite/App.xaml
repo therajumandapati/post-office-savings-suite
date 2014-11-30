@@ -161,5 +161,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="AutoCompleteBoxItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label
+            Content="{Binding AccountNumber}"
+            Width="100" />
+                <Label
+            Content="{Binding Name}"
+            FontStyle="Italic"
+            Foreground="DarkGray" />
+            </StackPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>

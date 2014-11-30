@@ -109,12 +109,14 @@
     <Compile Include="CreateFormWindow.xaml.cs">
       <DependentUpon>CreateFormWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DbWorker.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
