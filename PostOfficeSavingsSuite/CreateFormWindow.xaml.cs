@@ -23,16 +23,14 @@ namespace PostOfficeSavingsSuite
     public partial class CreateFormWindow : Window
     {
         public List<Customer> Customers = DbWorker.GetCustomers("");
-        public Customer SelectedCustomer { get; set; }
+        public Customer SelectedCustomer;
+        public List<Customer> SelectedCustomers = new List<Customer>();
         public CreateFormWindow()
         {
             InitializeComponent();
+            SelectedCustomer = new Customer {};
+            this.DataContext = SelectedCustomer;
             AccountNumberBox.ItemsSource = Customers;
-        }
-
-        private List<string> GetAccountNumbers()
-        {
-            return new List<string> { "12345", "23456" };
         }
         
         private void CreateForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -63,6 +61,40 @@ namespace PostOfficeSavingsSuite
                     return true;
             }
             return false;
+        }
+
+        private void AccountNumberBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var autocompletebox = sender as AutoCompleteBox;
+            if (autocompletebox.SelectedItem == null) return;
+            var selectedCustomer = autocompletebox.SelectedItem as Customer;
+            SelectedCustomer.Name = selectedCustomer.Name;
+            SelectedCustomer.AccountNumber = selectedCustomer.AccountNumber;
+            SelectedCustomer.Amount = selectedCustomer.Amount;
+            SelectedCustomer.StartMonth = selectedCustomer.StartMonth;
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCustomer.AccountNumber == 0.0) return;
+            SelectedCustomers.Add(SelectedCustomer);
+            AccountNumberBox.Text = "";
+            ClearSelectedCustomer();
+            customersList.ItemsSource = SelectedCustomers;
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearSelectedCustomer();
+            AccountNumberBox.Text = "";
+        }
+
+        private void ClearSelectedCustomer() 
+        {
+            SelectedCustomer.Name = null;
+            SelectedCustomer.AccountNumber = 0.0D;
+            SelectedCustomer.Amount = 0.0D;
+            SelectedCustomer.StartMonth = new DateTime();
         }
     }
 }
