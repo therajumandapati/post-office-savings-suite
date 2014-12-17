@@ -57,6 +57,11 @@ namespace PostOfficeSavingsSuite.Models
                 OnPropertyChanged("StartMonthString");
             }
         }
+        public Double Total { 
+            get {
+                return _amount * 5;
+            } 
+        }
 
         public string StartMonthString
         {

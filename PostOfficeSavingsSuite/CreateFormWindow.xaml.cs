@@ -34,6 +34,7 @@ namespace PostOfficeSavingsSuite
             this.DataContext = SelectedCustomer;
             AccountNumberBox.ItemsSource = Customers;
             customersList.ItemsSource = SelectedCustomers.List;
+            selectedDate.SelectedDate = DateTime.Today;
             SelectedCustomers.List.CollectionChanged += List_CollectionChanged;
         }
 
@@ -92,6 +93,11 @@ namespace PostOfficeSavingsSuite
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedCustomer.AccountNumber == 0.0) return;
+            if (SelectedCustomers.List.Count > 25) 
+            {
+                MessageBox.Show("You cannot add more than 25 customers.");
+                return;
+            }
             var successful = SelectedCustomers.Add(new Customer 
             {
                 Name = SelectedCustomer.Name,
@@ -143,12 +149,13 @@ namespace PostOfficeSavingsSuite
             SaveButton.IsEnabled = false;
             //allocate a serial number
             //show the data
-            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.Amount).Sum(), SavedCustomersList.Count), "Form saved");
+            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.Amount).Sum(), SavedCustomersList.Count), "Form saved!");
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            //generate the pdf and show
+            PrintForm printForm = new PrintForm(SavedCustomersList);
+            printForm.Show();
         }
 
         private bool IsDateAppropriate() 
