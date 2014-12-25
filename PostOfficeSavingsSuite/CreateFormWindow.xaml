@@ -5,12 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="PostOfficeSavingsSuite.CreateFormWindow" x:Name="CreateForm"
         Title="Create Form - PostOffice Savings Suite" Height="768" Width="1024" MinHeight="768" MinWidth="1024"
         Closing="CreateForm_Closing">
+    
     <Window.Background>
         <ImageBrush ImageSource="Images/background.png" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
     </Window.Background>
     <Grid x:Name="CreateFormGrid" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1024" Height="768">
         <Grid.RowDefinitions>
             <RowDefinition Height="280" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid x:Name="FormDetailsGrid" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Width="820" Margin="0,50,0,0" Background="White">
@@ -22,7 +24,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Text="SCHEDULE FOR DEPOSIT IN PO RD ACCOUNT" 
-                           FontSize="26" FontWeight="Bold" FontFamily="Segoe UI" />
+                           FontSize="26" FontWeight="SemiBold" FontFamily="Segoe UI" />
                 <Border Grid.Row="1" BorderBrush="#998B8B8B" BorderThickness="1" Margin="0,0,0,0">
                     <Grid VerticalAlignment="Top" Margin="0,0,0,0" MinHeight="110">
                         <Grid.ColumnDefinitions>
@@ -41,13 +43,13 @@
                                         <ColumnDefinition Width="50*" />
                                         <ColumnDefinition Width="50*" />
                                     </Grid.ColumnDefinitions>
-                                    <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="0">
+                                    <Border BorderThickness="0,0,0,0" BorderBrush="#998B8B8B" Grid.Column="0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="30*" />
                                                 <ColumnDefinition Width="70*" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" Text="ACC NO:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock Grid.Column="0" Text="ACC NO:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                             <toolkit:AutoCompleteBox x:Name="AccountNumberBox" Grid.Column="1" ItemsSource="{Binding}" ValueMemberPath="AccountNumber"
                                                              SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                              ItemTemplate="{StaticResource AutoCompleteBoxItemTemplate}" FontSize="20" Margin="10,0,0,0" TextChanged="AccountNumberBox_TextChanged"
@@ -60,8 +62,9 @@
                                                 <ColumnDefinition Width="30*" />
                                                 <ColumnDefinition Width="70*" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" Text="START:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                            <TextBlock IsEnabled="False" Text="{Binding Path=StartMonthString, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" FontSize="20" Margin="10,0,0,0"/>
+                                            <TextBlock Grid.Column="0" Text="START:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                            <TextBlock IsEnabled="False" Text="{Binding Path=StartMonthString, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" 
+                                                       FontWeight="Bold" VerticalAlignment="Center" Width="180" FontSize="20" Margin="10,0,0,0"/>
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -72,34 +75,55 @@
                                         <ColumnDefinition Width="15*" />
                                         <ColumnDefinition Width="85*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="NAME:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                    <TextBlock IsEnabled="False" Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Margin="10,4,0,4"/>
+                                    <TextBlock Grid.Column="0" Text="NAME:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    <TextBlock IsEnabled="False" Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                               FontWeight="Bold" FontSize="20" Margin="10,4,0,4"/>
                                 </Grid>
                             </Border>
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50*" />
-                                    <ColumnDefinition Width="50*" />
+                                    <ColumnDefinition Width="33.3*" />
+                                    <ColumnDefinition Width="33.3*" />
+                                    <ColumnDefinition Width="33.3*" />
                                 </Grid.ColumnDefinitions>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="0">
+                                <Border BorderThickness="0,0,0,0" BorderBrush="#998B8B8B" Grid.Column="0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30*" />
-                                            <ColumnDefinition Width="70*" />
+                                            <ColumnDefinition Width="45*" />
+                                            <ColumnDefinition Width="55*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="AMOUNT:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                        <TextBlock IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" 
-                                                       Text="{Binding Path=Amount,  Mode=TwoWay}" FontSize="20" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Column="0" Text="PREVIOUS:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <ComboBox x:Name="ExtraMonths" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" 
+                                                       SelectionChanged="ExtraMonths_SelectionChanged" FontSize="20" Margin="10,2,0,4" Height="30">
+                                            <ComboBoxItem>1</ComboBoxItem>
+                                            <ComboBoxItem>2</ComboBoxItem>
+                                            <ComboBoxItem>3</ComboBoxItem>
+                                            <ComboBoxItem>4</ComboBoxItem>
+                                            <ComboBoxItem>5</ComboBoxItem>
+                                            <ComboBoxItem>6</ComboBoxItem>
+                                        </ComboBox>
                                     </Grid>
                                 </Border>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="1" Margin="0,0,1,0">
+                                <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45*" />
+                                            <ColumnDefinition Width="55*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="AMOUNT:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <TextBlock IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" 
+                                                       FontWeight="Bold" Text="{Binding Path=Amount,  Mode=TwoWay}" FontSize="20" Margin="10,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                                <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="2" Margin="0,0,1,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="30*" />
                                             <ColumnDefinition Width="70*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="TOTAL:" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                        <TextBlock IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" FontSize="20" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Column="0" Text="EXTRA:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <TextBlock IsEnabled="False" Text="{Binding Path=ExtraAmount,  Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                   FontWeight="Bold" Width="110" FontSize="20" Margin="10,0,0,0"/>
                                     </Grid>
                                 </Border>
                             </Grid>
@@ -115,7 +139,7 @@
                                         <ColumnDefinition Width="30*" />
                                         <ColumnDefinition Width="70*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="SL NO: " FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" FontWeight="Bold"/>
+                                    <TextBlock Grid.Column="0" Text="SL NO: " FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" FontWeight="SemiBold"/>
                                     <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" FontSize="16" />
                                 </Grid>
                             </Border>
@@ -124,7 +148,7 @@
                                     <ColumnDefinition Width="30*" />
                                     <ColumnDefinition Width="70*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="DATE: " FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" FontWeight="Bold" />
+                                <TextBlock Grid.Column="0" Text="DATE: " FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" FontWeight="SemiBold" />
                                 <DatePicker x:Name="selectedDate" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" FontSize="16" Margin="0,0,0,0" 
 								Style="{StaticResource DatePickerStyle}"/>
                             </Grid>
@@ -142,16 +166,16 @@
                                 <ColumnDefinition Width="30*" />
                                 <ColumnDefinition Width="30*" />
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="AddButton" Grid.Column="0" Content="ADD" Margin="8" FontSize="15" FontWeight="Bold" Click="AddButton_Click"></Button>
-                            <Button IsEnabled="False" x:Name="ClearButton" Grid.Column="1" Content="CLEAR" Margin="8" FontSize="15" FontWeight="Bold" Click="ClearButton_Click"></Button>
+                            <Button x:Name="AddButton" Grid.Column="0" Content="ADD" Margin="8" FontSize="15" FontWeight="SemiBold" Click="AddButton_Click"></Button>
+                            <Button IsEnabled="False" x:Name="ClearButton" Grid.Column="1" Content="CLEAR" Margin="8" FontSize="15" FontWeight="SemiBold" Click="ClearButton_Click"></Button>
                         </Grid>
                         <Grid Grid.Column="1" HorizontalAlignment="Center" Width="400">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30*" />
                                 <ColumnDefinition Width="30*" />
                             </Grid.ColumnDefinitions>
-                            <Button IsEnabled="False" x:Name="SaveButton" Grid.Column="0" Content="SAVE" Margin="8" FontSize="15" FontWeight="Bold" Click="SaveButton_Click"></Button>
-                            <Button IsEnabled="False" x:Name="PrintButton" Grid.Column="1" Content="PRINT" Margin="8" FontSize="15" FontWeight="Bold" Click="PrintButton_Click"></Button>
+                            <Button IsEnabled="False" x:Name="SaveButton" Grid.Column="0" Content="SAVE" Margin="8" FontSize="15" FontWeight="SemiBold" Click="SaveButton_Click"></Button>
+                            <Button IsEnabled="False" x:Name="PrintButton" Grid.Column="1" Content="PRINT" Margin="8" FontSize="15" FontWeight="SemiBold" Click="PrintButton_Click"></Button>
                         </Grid>
                     </Grid>
                 </Border>
@@ -159,7 +183,15 @@
             <Grid x:Name="FormContentGrid" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Height="Auto"/>
             <Label Name="Test" Content="{Binding MyProperty}" HorizontalAlignment="Left" Margin="135,238,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid x:Name="ListGrid" Grid.Row="1" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" Width="820">
+        <Grid x:Name="TotalGrid" Grid.Row="1" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" Width="820">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="NumberOfCustomers" Text="Number of accounts: " FontSize="24" FontWeight="Light" VerticalAlignment="Center"  HorizontalAlignment="Center" />
+            <TextBlock Grid.Column="1" x:Name="TotalAmount" Text="Total amount: " FontSize="24" FontWeight="Light" VerticalAlignment="Center"  HorizontalAlignment="Center" />
+        </Grid>
+        <Grid x:Name="ListGrid" Grid.Row="2" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" Width="820">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -172,21 +204,25 @@
                         <ColumnDefinition Width="10*" />
                         <ColumnDefinition Width="10*" />
                         <ColumnDefinition Width="10*" />
+                        <ColumnDefinition Width="10*" />
                     </Grid.ColumnDefinitions>
-                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0">
-                        <TextBlock Text="Acount No" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="1" Grid.Column="0">
+                        <TextBlock Text="Acount No" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="1">
-                        <TextBlock Text="Account Holder" Padding="6,0,0,0" FontSize="18" VerticalAlignment="Center" />    
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="1">
+                        <TextBlock Text="Account Holder" FontWeight="Light" Padding="6,0,0,0" FontSize="18" VerticalAlignment="Center" />    
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="2">
-                        <TextBlock Text="Amount" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />                        
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="2">
+                        <TextBlock Text="Amount" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />                        
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="3">
-                        <TextBlock Text="Total" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="3">
+                        <TextBlock Text="Extra" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
-                    <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="4">
-                        <TextBlock Text="Actions" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="4">
+                        <TextBlock Text="Total" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="5">
+                        <TextBlock Text="Actions" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </Grid>
                 <ItemsControl Name="customersList" Grid.Row="1">
@@ -199,21 +235,25 @@
                                     <ColumnDefinition Width="10*" />
                                     <ColumnDefinition Width="10*" />
                                     <ColumnDefinition Width="10*" />
+                                    <ColumnDefinition Width="10*" />
                                 </Grid.ColumnDefinitions>
-                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0">
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="1" Grid.Column="0">
                                     <TextBlock Text="{Binding Path=AccountNumber}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
-                                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="1">
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="1">
                                     <TextBlock Text="{Binding Path=Name}" Padding="6,0,0,0" FontSize="18" VerticalAlignment="Center" />
                                 </Border>
-                                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="2">
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="2">
                                     <TextBlock Text="{Binding Path=Amount}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
-                                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="3">
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="3">
+                                    <TextBlock Text="{Binding Path=ExtraAmount}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="4">
                                     <TextBlock Text="{Binding Path=Total}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
-                                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="4">
-                                    <Button x:Name="RemoveEntryButton" Background="Red" Width="30" Height="30" Command="{Binding ItemsControlButtonClicked}" CommandParameter="{Binding}">
+                                <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="5">
+                                    <Button x:Name="RemoveEntryButton" Background="Red" Width="30" Height="30" Tag="{Binding}" Click="RemoveEntryButton_Click">
                                         <Image Source="Images/delete.png" Grid.Column="0" Width="20" Height="20" HorizontalAlignment="Center" Margin="0,0,0,0"/>
                                     </Button>
                                 </Border>

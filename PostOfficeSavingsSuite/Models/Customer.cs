@@ -12,6 +12,7 @@ namespace PostOfficeSavingsSuite.Models
         private Double _accountNumber;
         private string _name;
         private Double _amount;
+        private Double _extra;
         private DateTime _startMonth;
         public Double AccountNumber {
             get { return _accountNumber; }
@@ -43,7 +44,24 @@ namespace PostOfficeSavingsSuite.Models
                     return;
                 _amount = value;
                 OnPropertyChanged("Amount");
+                OnPropertyChanged("PayingTotal");
             }
+        }
+        public Double ExtraAmount 
+        {
+            get { return _extra; }
+            set
+            {
+                if (value == _extra)
+                    return;
+                _extra = value;
+                OnPropertyChanged("ExtraAmount");
+                OnPropertyChanged("PayingTotal");
+            }
+        }
+        public Double PayingTotal
+        {
+            get { return _amount + _extra; }
         }
         public DateTime StartMonth
         {
@@ -54,12 +72,13 @@ namespace PostOfficeSavingsSuite.Models
                     return;
                 _startMonth = value;
                 OnPropertyChanged("StartMonth");
+                OnPropertyChanged("Total");
                 OnPropertyChanged("StartMonthString");
             }
         }
         public Double Total { 
             get {
-                return _amount * 5;
+                return GetTotal(_startMonth);
             } 
         }
 
@@ -72,6 +91,13 @@ namespace PostOfficeSavingsSuite.Models
         {
             if (_startMonth == new DateTime()) return "";
             return date.ToString("y");
+        }
+
+        private int GetTotal(DateTime dt2) 
+        {
+            var dt1 = DateTime.Today;
+            int months = ((dt1.Year - dt2.Year) * 12) + (dt1.Month - dt2.Month) + 1;
+            return months * Convert.ToInt32(Math.Round(_amount, 0));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

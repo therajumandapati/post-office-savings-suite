@@ -25,6 +25,7 @@ namespace PostOfficeSavingsSuite
     {
         public List<Customer> Customers = DbWorker.GetCustomers("");
         public Customer SelectedCustomer;
+        public int ExtraMonthsCount = 0;
         public SelectedCustomers SelectedCustomers = new SelectedCustomers();
         public List<Customer> SavedCustomersList;
         public CreateFormWindow()
@@ -87,6 +88,7 @@ namespace PostOfficeSavingsSuite
             SelectedCustomer.AccountNumber = selectedCustomer.AccountNumber;
             SelectedCustomer.Amount = selectedCustomer.Amount;
             SelectedCustomer.StartMonth = selectedCustomer.StartMonth;
+            ExtraMonths.IsEnabled = true;
             ClearButton.IsEnabled = true;
         }
 
@@ -98,27 +100,47 @@ namespace PostOfficeSavingsSuite
                 MessageBox.Show("You cannot add more than 25 customers.");
                 return;
             }
+            if (CheckIfAlreadyAdded(SelectedCustomer.AccountNumber)) 
+            {
+                MessageBox.Show("Account already added.");
+                return;
+            }
             var successful = SelectedCustomers.Add(new Customer 
             {
                 Name = SelectedCustomer.Name,
                 AccountNumber = SelectedCustomer.AccountNumber,
                 Amount = SelectedCustomer.Amount,
+                ExtraAmount = SelectedCustomer.ExtraAmount,
                 StartMonth = SelectedCustomer.StartMonth
             });
+            ExtraMonthsCount = 0;
+            ExtraMonths.SelectedItem = null;
             if (!successful)
             {
                 MessageBox.Show("Total amount cannot exceed Rs.10000.");
                 return;
             }
             else {
+                NumberOfCustomers.Text = String.Format("Number of accounts: {0}", SelectedCustomers.List.Count.ToString());
+                TotalAmount.Text = String.Format("Total amount: {0}", SelectedCustomers.Total);
+                ExtraMonths.IsEnabled = false;
                 AccountNumberBox.Text = "";
                 ClearSelectedCustomer();
             }
         }
 
+        private bool CheckIfAlreadyAdded(double p)
+        {
+            var list = SelectedCustomers.List.Select(x => x.AccountNumber).ToList();
+            return list.Contains(p);
+        }
+
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             ClearSelectedCustomer();
+            ExtraMonths.IsEnabled = false;
+            ExtraMonthsCount = 0;
+            ExtraMonths.SelectedItem = null;
             AccountNumberBox.Text = "";
         }
 
@@ -127,12 +149,16 @@ namespace PostOfficeSavingsSuite
             SelectedCustomer.Name = null;
             SelectedCustomer.AccountNumber = 0.0D;
             SelectedCustomer.Amount = 0.0D;
+            SelectedCustomer.ExtraAmount = 0.0D;
             SelectedCustomer.StartMonth = new DateTime();
         }
 
         private void RemoveEntryButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("");
+            var customer = ((Button)sender).Tag as Customer;
+            SelectedCustomers.Remove(customer);
+            NumberOfCustomers.Text = String.Format("Number of accounts: {0}", SelectedCustomers.List.Count.ToString());
+            TotalAmount.Text = String.Format("Total amount: {0}", SelectedCustomers.Total);
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -142,6 +168,7 @@ namespace PostOfficeSavingsSuite
                 MessageBox.Show("Please select a date", "Error!");
                 return;
             }
+            SelectedCustomers.Saved = true;
             SavedCustomersList = SelectedCustomers.List.OrderBy(x => x.AccountNumber).ToList();
             AddButton.IsEnabled = false;
             ClearButton.IsEnabled = false;
@@ -149,7 +176,8 @@ namespace PostOfficeSavingsSuite
             SaveButton.IsEnabled = false;
             //allocate a serial number
             //show the data
-            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.Amount).Sum(), SavedCustomersList.Count), "Form saved!");
+            SelectedCustomers.SerialNumber = DbWorker.GenerateNextSerialNumber();
+            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.PayingTotal).Sum(), SavedCustomersList.Count), "Form saved!");
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
@@ -164,6 +192,14 @@ namespace PostOfficeSavingsSuite
             if (date == null) return false;
             if (date < DateTime.Today) return false;
             return true;
+        }
+
+        private void ExtraMonths_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+            var months = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            ExtraMonthsCount = Convert.ToInt32(months);
+            SelectedCustomer.ExtraAmount = ExtraMonthsCount * SelectedCustomer.Amount;
         }
     }
 }
