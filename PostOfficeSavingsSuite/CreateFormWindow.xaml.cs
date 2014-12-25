@@ -174,10 +174,9 @@ namespace PostOfficeSavingsSuite
             ClearButton.IsEnabled = false;
             PrintButton.IsEnabled = true;
             SaveButton.IsEnabled = false;
-            //allocate a serial number
-            //show the data
-            SelectedCustomers.SerialNumber = DbWorker.GenerateNextSerialNumber();
-            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.PayingTotal).Sum(), SavedCustomersList.Count), "Form saved!");
+            var serialNumber = DbWorker.SaveForm(SavedCustomersList);
+            SerialNumber.Text = serialNumber.ToString();
+            MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.PayingTotal).Sum(), SavedCustomersList.Count), serialNumber);
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)

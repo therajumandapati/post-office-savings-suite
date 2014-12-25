@@ -67,6 +67,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Controls.Input.Toolkit">
@@ -112,6 +113,7 @@
       <DependentUpon>CreateFormWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DbWorker.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -123,6 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\MasterDetail.cs" />
+    <Compile Include="Models\MasterOrder.cs" />
     <Compile Include="Models\SelectedCustomers.cs" />
     <Compile Include="PrintForm.xaml.cs">
       <DependentUpon>PrintForm.xaml</DependentUpon>
