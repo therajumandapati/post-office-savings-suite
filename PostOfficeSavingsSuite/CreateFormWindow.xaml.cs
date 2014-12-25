@@ -47,11 +47,11 @@ namespace PostOfficeSavingsSuite
         
         private void CreateForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-        //    MessageBoxResult result = MessageBox.Show("Are you sure you want to exit ?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        //    if (result == MessageBoxResult.No)
-        //    {
-        //        e.Cancel = true;
-        //    }
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to exit ?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void AccountNumberBox_TextChanged(object sender, RoutedEventArgs e)
