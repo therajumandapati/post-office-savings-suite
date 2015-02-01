@@ -168,5 +168,27 @@ namespace PostOfficeSavingsSuite
                 return customers.AsEnumerable().ToList().Count != 0;
             }
         }
+
+        public static bool AddCustomer(DbCustomer customer) 
+        {
+            try
+            {
+                string commandString = "INSERT into Emp (AcNo, Name, Amount, AcStart)" + " VALUES (?, ?, ?, ?)";
+                OleDbCommand commandStatement = new OleDbCommand(commandString, Connection);
+                commandStatement.Parameters.Add("@AcNo", OleDbType.Integer, 50).Value = customer.AccountNumber;
+                commandStatement.Parameters.Add("@Name", OleDbType.VarWChar, 40).Value = customer.Name;
+                commandStatement.Parameters.Add("@Amount", OleDbType.Integer, 40).Value = customer.Amount;
+                commandStatement.Parameters.Add("@AcStart", OleDbType.Date, 40).Value = customer.AccountStarted;
+                Connection.Open();
+                commandStatement.ExecuteNonQuery();
+                Connection.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Connection.Close();
+                throw;
+            }
+        }
     }
 }

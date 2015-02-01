@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DbCustomer.cs" />
     <Compile Include="Models\MasterDetail.cs" />
     <Compile Include="Models\MasterOrder.cs" />
     <Compile Include="Models\SelectedCustomers.cs" />
