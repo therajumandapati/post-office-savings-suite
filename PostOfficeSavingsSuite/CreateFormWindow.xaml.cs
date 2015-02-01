@@ -28,6 +28,7 @@ namespace PostOfficeSavingsSuite
         public int ExtraMonthsCount = 0;
         public SelectedCustomers SelectedCustomers = new SelectedCustomers();
         public List<Customer> SavedCustomersList;
+        public DateTime SelectedDate = DateTime.Today;
         public CreateFormWindow()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace PostOfficeSavingsSuite
             this.DataContext = SelectedCustomer;
             AccountNumberBox.ItemsSource = Customers;
             customersList.ItemsSource = SelectedCustomers.List;
-            selectedDate.SelectedDate = DateTime.Today;
+            selectedDate.SelectedDate = SelectedDate;
             SelectedCustomers.List.CollectionChanged += List_CollectionChanged;
         }
 
@@ -181,7 +182,7 @@ namespace PostOfficeSavingsSuite
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            PrintForm printForm = new PrintForm(SavedCustomersList);
+            PrintForm printForm = new PrintForm(SavedCustomersList, SelectedDate);
             printForm.Show();
         }
 
@@ -199,6 +200,14 @@ namespace PostOfficeSavingsSuite
             var months = (e.AddedItems[0] as ComboBoxItem).Content as string;
             ExtraMonthsCount = Convert.ToInt32(months);
             SelectedCustomer.ExtraAmount = ExtraMonthsCount * SelectedCustomer.Amount;
+        }
+
+        private void selectedDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var datePicker = sender as DatePicker;
+            if(datePicker != null){
+                SelectedDate = datePicker.SelectedDate.Value;
+            }
         }
     }
 }

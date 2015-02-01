@@ -27,16 +27,16 @@ namespace PostOfficeSavingsSuite
             InitializeComponent();
         }
 
-        public PrintForm(List<Models.Customer> SavedCustomersList)
+        public PrintForm(List<Models.Customer> SavedCustomersList, DateTime selectedDate)
         {
             InitializeComponent();
             this.SavedCustomersList = SavedCustomersList;
-            UpdateForm();
+            UpdateForm(selectedDate);
         }
 
-        private void UpdateForm() 
+        private void UpdateForm(DateTime selectedDate) 
         {
-            Date.Text = DateTime.Now.ToString("dd-MMM-yyyy");
+            Date.Text = selectedDate.ToString("dd-MMM-yyyy");
             var i = 0;
             foreach (var customer in SavedCustomersList) 
             {

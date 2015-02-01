@@ -15,7 +15,7 @@
         </Grid>
         <Grid Height="150" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="430">
             <Grid HorizontalAlignment="Left" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="200">
-                <Button Name="AddCustomer" Foreground="White" Width="200" Height="50" FontSize="16">
+                <Button Name="AddCustomer" Foreground="White" Width="200" Height="50" FontSize="16" Click="AddCustomer_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30" />

@@ -53,5 +53,21 @@ namespace PostOfficeSavingsSuite
                 Application.Current.Shutdown();
             }
         }
+
+        private void AddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var windowShown = false;
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.Name == "AddCustomer")
+                {
+                    window.Activate();
+                    windowShown = true;
+                }
+            }
+            if (windowShown) return;
+            var addCustomer = new AddCustomerWindow();
+            addCustomer.Show();
+        }
     }
 }

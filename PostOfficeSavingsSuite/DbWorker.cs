@@ -36,7 +36,8 @@ namespace PostOfficeSavingsSuite
                                               AccountNumber = Convert.ToDouble(customer.ItemArray[0].ToString()),
                                               Name = customer.ItemArray[1].ToString(),
                                               Amount = Convert.ToDouble(customer.ItemArray[2].ToString()),
-                                              StartMonth = DateTime.ParseExact(customer.ItemArray[3].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture)
+                                              StartMonth = DateTime.Parse(customer.ItemArray[3].ToString())
+                                              //StartMonth = DateTime.ParseExact(customer.ItemArray[3].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture)
                                           }).ToList();
             Connection.Close();
             return customerList;
@@ -149,6 +150,23 @@ namespace PostOfficeSavingsSuite
                                         }).Last();
             Connection.Close();
             return currentOrder.SLNo;
+        }
+
+        public static bool CheckIfAccountNumberIsTaken(string accountNumber) 
+        {
+            if (accountNumber.Length != 5)
+            {
+                return false;
+            }
+            else 
+            {
+                Connection.Open();
+                OleDbDataAdapter adapter = new OleDbDataAdapter(String.Format("Select * from Emp WHERE Emp.AcNo = {0}", accountNumber), Connection);
+                DataTable customers = new DataTable();
+                adapter.Fill(customers);
+                Connection.Close();
+                return customers.AsEnumerable().ToList().Count != 0;
+            }
         }
     }
 }

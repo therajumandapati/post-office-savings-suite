@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="PostOfficeSavingsSuite.CreateFormWindow" x:Name="CreateForm"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        x:Class="PostOfficeSavingsSuite.CreateFormWindow" x:Name="CreateForm"
         Title="Create Form - PostOffice Savings Suite" Height="768" Width="1024" MinHeight="768" MinWidth="1024"
         Closing="CreateForm_Closing">
     
@@ -150,7 +152,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="DATE: " FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" FontWeight="SemiBold" />
                                 <DatePicker x:Name="selectedDate" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" FontSize="16" Margin="0,0,0,0" 
-								Style="{StaticResource DatePickerStyle}"/>
+								Style="{StaticResource DatePickerStyle}" SelectedDateChanged="selectedDate_SelectedDateChanged"/>
                             </Grid>
                         </Grid>
                     </Grid>
