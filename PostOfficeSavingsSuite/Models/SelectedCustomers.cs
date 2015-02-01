@@ -34,5 +34,12 @@ namespace PostOfficeSavingsSuite.Models
                 return List.Select(x => x.Amount + x.ExtraAmount).Sum();
             }
         }
+
+        public void Reset() 
+        {
+            this.List = new ObservableCollection<Customer>();
+            this.SerialNumber = "";
+            this.Saved = false;
+        }
     }
 }

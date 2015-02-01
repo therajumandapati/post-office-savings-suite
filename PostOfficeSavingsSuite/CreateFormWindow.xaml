@@ -17,7 +17,8 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="FormDetailsGrid" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Width="820" Margin="0,50,0,0" Background="White">
+        <Grid x:Name="FormDetailsGrid" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" 
+              Width="820" Margin="0,50,0,0" Background="White" Visibility="Visible">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
@@ -185,7 +186,8 @@
             <Grid x:Name="FormContentGrid" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" Height="Auto"/>
             <Label Name="Test" Content="{Binding MyProperty}" HorizontalAlignment="Left" Margin="135,238,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid x:Name="TotalGrid" Grid.Row="1" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" Width="820">
+        <Grid x:Name="TotalGrid" Grid.Row="1" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" 
+              Width="820" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*" />
                 <ColumnDefinition Width="50*" />
@@ -193,7 +195,8 @@
             <TextBlock Grid.Column="0" x:Name="NumberOfCustomers" Text="Number of accounts: " FontSize="24" FontWeight="Light" VerticalAlignment="Center"  HorizontalAlignment="Center" />
             <TextBlock Grid.Column="1" x:Name="TotalAmount" Text="Total amount: " FontSize="24" FontWeight="Light" VerticalAlignment="Center"  HorizontalAlignment="Center" />
         </Grid>
-        <Grid x:Name="ListGrid" Grid.Row="2" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" Width="820">
+        <Grid x:Name="ListGrid" Grid.Row="2" HorizontalAlignment="Center" MinWidth="800" Margin="0,10,0,0" Background="White" 
+              Width="820" Visibility="Visible">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -263,6 +266,26 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+            </Grid>
+        </Grid>
+        
+        <Grid x:Name="SuccessfulGrid" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" 
+              Width="820" Margin="0,50,0,0" Background="White" Visibility="Collapsed" Height="230">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="30*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="SuccessfulMessage" Grid.Row="0" Text="Form created successfully!" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="25"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="PrintAgain" IsEnabled="True" Content="PRINT AGAIN" FontSize="15" 
+                        Margin="20" Width="200" FontWeight="SemiBold" Click="PrintAgain_Click"/>
+                <Button Grid.Column="1" x:Name="CreateNewForm" IsEnabled="True" Content="CREATE NEW FORM" FontSize="15"
+                        Margin="20" Width="200" FontWeight="SemiBold" Click="CreateNewForm_Click" />
             </Grid>
         </Grid>
     </Grid>

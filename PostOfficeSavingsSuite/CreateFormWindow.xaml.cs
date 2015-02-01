@@ -182,8 +182,37 @@ namespace PostOfficeSavingsSuite
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
+            TotalGrid.Visibility = Visibility.Collapsed;
+            ListGrid.Visibility = Visibility.Collapsed;
+            FormDetailsGrid.Visibility = Visibility.Collapsed;
+            SuccessfulGrid.Visibility = Visibility.Visible;
+            SuccessfulMessage.Text = String.Format("Form created successfully with id: {0}", SerialNumber.Text);
             PrintForm printForm = new PrintForm(SavedCustomersList, SelectedDate);
             printForm.Show();
+        }
+
+        private void PrintAgain_Click(object sender, RoutedEventArgs e)
+        {
+            PrintForm printForm = new PrintForm(SavedCustomersList, SelectedDate);
+            printForm.Show();
+        }
+
+        private void CreateNewForm_Click(object sender, RoutedEventArgs e)
+        {
+            SuccessfulGrid.Visibility = Visibility.Collapsed;
+            TotalGrid.Visibility = Visibility.Visible;
+            ListGrid.Visibility = Visibility.Visible;
+            FormDetailsGrid.Visibility = Visibility.Visible;
+            AddButton.IsEnabled = true;
+            PrintButton.IsEnabled = false;
+            SelectedCustomers.Reset();
+            SelectedCustomers.List.CollectionChanged += List_CollectionChanged;
+            customersList.ItemsSource = SelectedCustomers.List;
+            SavedCustomersList = null;
+            SerialNumber.Text = String.Empty;
+            NumberOfCustomers.Text = "Number of accounts: ";
+            TotalAmount.Text = "Total amount: ";
+            selectedDate.SelectedDate = DateTime.Now;
         }
 
         private bool IsDateAppropriate() 
