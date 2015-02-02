@@ -27,8 +27,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="ACC NO:" FontSize="16" FontWeight="SemiBold"
                        VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="AccountNumber" Grid.Column="1" Width="92" FontSize="20" Margin="10,6,0,6" MaxLength="5"
-                             HorizontalAlignment="Left" VerticalAlignment="Center" TextChanged="AcccountNumber_TextChanged"/>
+                    <TextBox x:Name="AccountNumber" Grid.Column="1" Width="92" FontSize="20" Margin="10,0,0,0" MaxLength="5"
+                             HorizontalAlignment="Left" VerticalAlignment="Center" TextChanged="AcccountNumber_TextChanged" Height="38"/>
                     <TextBlock Grid.Column="2" Visibility="Collapsed" x:Name="Error" Foreground="Red" FontSize="14" VerticalAlignment="Center"
                                HorizontalAlignment="Center" Text="Account number already exists!" Width="287" />
                 </Grid>
@@ -41,7 +41,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="20,0,0,0" Grid.Column="0" Text="NAME:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     <TextBox x:Name="CustomerName" Grid.Column="1" Width="373" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                             FontSize="20" Margin="10,6,0,6" TextChanged="CustomerName_TextChanged"/>
+                             FontSize="20" Margin="10,0,0,0" TextChanged="CustomerName_TextChanged" Height="39"/>
                 </Grid>
             </Border>
             <Border BorderThickness="1,0,1,1" BorderBrush="#998B8B8B" Grid.Row="3">
@@ -57,7 +57,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="AMOUNT:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                         <TextBox x:Name="Amount" Grid.Column="1" Width="92" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                 FontSize="20" Margin="10,6,-12,6" TextChanged="Amount_TextChanged"/>
+                                 FontSize="20" Margin="10,0,-12,0" TextChanged="Amount_TextChanged" Height="39"/>
                     </Grid>
                     <Grid Grid.Column="1" HorizontalAlignment="Left" >
                         <Grid.ColumnDefinitions>

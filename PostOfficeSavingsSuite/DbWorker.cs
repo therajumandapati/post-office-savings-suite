@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PostOfficeSavingsSuite
 {
@@ -45,6 +46,10 @@ namespace PostOfficeSavingsSuite
 
         private static string GenerateNextSerialNumber(string slNo)
         {
+            if (slNo == string.Empty) 
+            {
+                return String.Format("SL/{0}/0000", DateTime.Today.Year.ToString());
+            }
             var regex = new Regex(@"SL/(?<year>\d+)/(?<serial>\d+)");
             var match = regex.Match(slNo);
             var year = match.Groups["year"].Value;
@@ -143,13 +148,17 @@ namespace PostOfficeSavingsSuite
             OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from PORDMast", Connection);
             DataTable masterOrders = new DataTable();
             adapter.Fill(masterOrders);
-            MasterOrder currentOrder = (from masterOrder in masterOrders.AsEnumerable()
+            var currentOrders = (from masterOrder in masterOrders.AsEnumerable()
                                         select new MasterOrder
                                         {
                                             SLNo = masterOrder.ItemArray[0].ToString()
-                                        }).Last();
+                                        }).ToList();
             Connection.Close();
-            return currentOrder.SLNo;
+            if (currentOrders.Count == 0) 
+            {
+                return String.Empty;
+            }
+            return currentOrders.Last().SLNo;
         }
 
         public static bool CheckIfAccountNumberIsTaken(string accountNumber) 

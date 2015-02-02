@@ -119,7 +119,7 @@ namespace PostOfficeSavingsSuite
                 Name = CustomerName.Text,
                 AccountNumber = AccountNumber.Text,
                 Amount = Amount.Text,
-                AccountStarted = AccStartedDate.SelectedDate.Value.ToString("dd-MM-yyyy")
+                AccountStarted = AccStartedDate.SelectedDate.Value
             });
             if (successful) 
             {

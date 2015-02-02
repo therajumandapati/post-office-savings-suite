@@ -164,7 +164,7 @@ namespace PostOfficeSavingsSuite
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsDateAppropriate()) 
+            if (!IsDateAppropriate())
             {
                 MessageBox.Show("Please select a date", "Error!");
                 return;

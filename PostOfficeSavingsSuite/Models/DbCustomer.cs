@@ -11,6 +11,6 @@ namespace PostOfficeSavingsSuite.Models
         public string AccountNumber { get; set; }
         public string Name { get; set; }
         public string Amount { get; set; }
-        public string AccountStarted { get; set; }
+        public DateTime AccountStarted { get; set; }
     }
 }
