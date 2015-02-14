@@ -58,12 +58,31 @@ namespace PostOfficeSavingsSuite
         private void AccountNumberBox_TextChanged(object sender, RoutedEventArgs e)
         {
             var textBox = sender as AutoCompleteBox;
-            if(string.IsNullOrEmpty(textBox.Text)) return;
-            if (!CheckIfAccountNumberExists(textBox.Text)) 
+            if (string.IsNullOrEmpty(textBox.Text)) 
             {
+                EnableTempCustomerEntry(false);
+                return;
+            }
+            else if (textBox.Text == "*")
+            {
+                EnableTempCustomerEntry(true);
+                return;
+            }
+            else if (!CheckIfAccountNumberExists(textBox.Text))
+            {
+                EnableTempCustomerEntry(false);
                 Customers = DbWorker.GetCustomers(textBox.Text);
             }
+            
             textBox.ItemsSource = Customers;
+        }
+
+        private void EnableTempCustomerEntry(bool enable) 
+        {
+            NameBox.IsEnabled = enable;
+            NameBox.Text = "";
+            AmountBox.IsEnabled = enable;
+            AmountBox.Text = "";
         }
 
         private bool CheckIfAccountNumberExists(string accountNumber) 
@@ -95,7 +114,15 @@ namespace PostOfficeSavingsSuite
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedCustomer.AccountNumber == 0.0) return;
+            var isTemp = false;
+            EnableTempCustomerEntry(false);
+            if (SelectedCustomer.AccountNumber == 0.0 && AccountNumberBox.Text != "*")
+            {
+                return;
+            } else
+            {
+                isTemp = true;
+            }
             if (SelectedCustomers.List.Count > 25) 
             {
                 MessageBox.Show("You cannot add more than 25 customers.");
@@ -106,14 +133,19 @@ namespace PostOfficeSavingsSuite
                 MessageBox.Show("Account already added.");
                 return;
             }
-            var successful = SelectedCustomers.Add(new Customer 
+            var customer = new Customer
             {
                 Name = SelectedCustomer.Name,
                 AccountNumber = SelectedCustomer.AccountNumber,
                 Amount = SelectedCustomer.Amount,
                 ExtraAmount = SelectedCustomer.ExtraAmount,
                 StartMonth = SelectedCustomer.StartMonth
-            });
+            };
+            if (isTemp) 
+            {
+                customer.StartMonth = DateTime.Today;
+            }
+            var successful = SelectedCustomers.Add(customer);
             ExtraMonthsCount = 0;
             ExtraMonths.SelectedItem = null;
             if (!successful)
@@ -132,6 +164,7 @@ namespace PostOfficeSavingsSuite
 
         private bool CheckIfAlreadyAdded(double p)
         {
+            if (p == 0.0) return false;
             var list = SelectedCustomers.List.Select(x => x.AccountNumber).ToList();
             return list.Contains(p);
         }
@@ -170,7 +203,7 @@ namespace PostOfficeSavingsSuite
                 return;
             }
             SelectedCustomers.Saved = true;
-            SavedCustomersList = SelectedCustomers.List.OrderBy(x => x.AccountNumber).ToList();
+            SavedCustomersList = OrderSavedCustomers(SelectedCustomers.List.ToList());
             AddButton.IsEnabled = false;
             ClearButton.IsEnabled = false;
             PrintButton.IsEnabled = true;
@@ -178,6 +211,11 @@ namespace PostOfficeSavingsSuite
             var serialNumber = DbWorker.SaveForm(SavedCustomersList);
             SerialNumber.Text = serialNumber.ToString();
             MessageBox.Show(String.Format("Paying Rs.{0} for {1} customers", SavedCustomersList.Select(x => x.PayingTotal).Sum(), SavedCustomersList.Count), serialNumber);
+        }
+
+        private List<Customer> OrderSavedCustomers(List<Customer> list) 
+        {
+            return list.Where(y => y.AccountNumber != 0.0).OrderBy(x => x.AccountNumber).Concat(list.Where(x => x.AccountNumber == 0.0)).ToList();
         }
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)

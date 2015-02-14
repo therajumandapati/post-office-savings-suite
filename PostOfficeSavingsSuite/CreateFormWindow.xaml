@@ -7,7 +7,7 @@
         x:Class="PostOfficeSavingsSuite.CreateFormWindow" x:Name="CreateForm"
         Title="Create Form - PostOffice Savings Suite" Height="768" Width="1024" MinHeight="768" MinWidth="1024"
         Closing="CreateForm_Closing">
-    
+
     <Window.Background>
         <ImageBrush ImageSource="Images/background.png" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
     </Window.Background>
@@ -79,8 +79,8 @@
                                         <ColumnDefinition Width="85*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="NAME:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                    <TextBlock IsEnabled="False" Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                               FontWeight="Bold" FontSize="20" Margin="10,4,0,4"/>
+                                    <TextBox IsEnabled="False" x:Name="NameBox" Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                               FontWeight="Bold" FontSize="20" Margin="9.5,0,0,0" Width="457" Height="32"/>
                                 </Grid>
                             </Border>
                             <Grid Grid.Row="2">
@@ -114,8 +114,8 @@
                                             <ColumnDefinition Width="55*" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="AMOUNT:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                        <TextBlock IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" 
-                                                       FontWeight="Bold" Text="{Binding Path=Amount,  Mode=TwoWay}" FontSize="20" Margin="10,0,0,0"/>
+                                        <TextBox IsEnabled="False" x:Name="AmountBox" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90" 
+                                                       FontWeight="Bold" Text="{Binding Path=Amount,  Mode=TwoWay}" FontSize="20" Margin="10.5,0,0,3.5" Height="33"/>
                                     </Grid>
                                 </Border>
                                 <Border BorderThickness="0,0,1,0" BorderBrush="#998B8B8B" Grid.Column="2" Margin="0,0,1,0">
@@ -215,10 +215,10 @@
                         <TextBlock Text="Acount No" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="1">
-                        <TextBlock Text="Account Holder" FontWeight="Light" Padding="6,0,0,0" FontSize="18" VerticalAlignment="Center" />    
+                        <TextBlock Text="Account Holder" FontWeight="Light" Padding="6,0,0,0" FontSize="18" VerticalAlignment="Center" />
                     </Border>
                     <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="2">
-                        <TextBlock Text="Amount" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />                        
+                        <TextBlock Text="Amount" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <Border BorderBrush="#FFA2A2A2" BorderThickness="0,1,1,1" Grid.Column="3">
                         <TextBlock Text="Extra" FontSize="18" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -268,7 +268,7 @@
                 </ItemsControl>
             </Grid>
         </Grid>
-        
+
         <Grid x:Name="SuccessfulGrid" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="800" 
               Width="820" Margin="0,50,0,0" Background="White" Visibility="Collapsed" Height="230">
             <Grid.RowDefinitions>
