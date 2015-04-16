@@ -116,10 +116,11 @@ namespace PostOfficeSavingsSuite
         {
             var isTemp = false;
             EnableTempCustomerEntry(false);
-            if (SelectedCustomer.AccountNumber == 0.0 && AccountNumberBox.Text != "*")
+            if (SelectedCustomer.AccountNumber == 0.0)
             {
                 return;
-            } else
+            }
+            if (AccountNumberBox.Text == "*")
             {
                 isTemp = true;
             }
