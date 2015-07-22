@@ -37,8 +37,8 @@ namespace PostOfficeSavingsSuite
                                               AccountNumber = Convert.ToDouble(customer.ItemArray[0].ToString()),
                                               Name = customer.ItemArray[1].ToString(),
                                               Amount = Convert.ToDouble(customer.ItemArray[2].ToString()),
-                                              StartMonth = DateTime.Parse(customer.ItemArray[3].ToString())
-                                              //StartMonth = DateTime.ParseExact(customer.ItemArray[3].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture)
+                                              //StartMonth = DateTime.Parse(customer.ItemArray[3].ToString())
+                                              StartMonth = DateTime.ParseExact(customer.ItemArray[3].ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture)
                                           }).ToList();
             Connection.Close();
             return customerList;
