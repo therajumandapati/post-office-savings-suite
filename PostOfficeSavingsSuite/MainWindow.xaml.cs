@@ -27,18 +27,24 @@ namespace PostOfficeSavingsSuite
 
         private void CreateForm_Click(object sender, RoutedEventArgs e)
         {
-            var windowShown = false;
-            foreach (Window window in Application.Current.Windows)
+            try
             {
-                if (window.Name == "CreateForm")
+                var windowShown = false;
+                foreach (Window window in Application.Current.Windows)
                 {
-                    window.Activate();
-                    windowShown = true;
+                    if (window.Name == "CreateForm")
+                    {
+                        window.Activate();
+                        windowShown = true;
+                    }
                 }
+                if (windowShown) return;
+                var createForm = new CreateFormWindow();
+                createForm.Show();
             }
-            if (windowShown) return;
-            var createForm = new CreateFormWindow();
-            createForm.Show();
+            catch (Exception exception) {
+                MessageBox.Show(exception.Message);
+            }
         }
 
         private void Main_Closing(object sender, System.ComponentModel.CancelEventArgs e)
